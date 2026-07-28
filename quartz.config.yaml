@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
-  pageTitleSuffix: ""
+  pageTitle: Federico's digital garden
+  pageTitleSuffix: Messy, like any spontaneous garden
   enableSPA: true
   enablePopovers: true
   analytics:
