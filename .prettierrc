@@ -1,20 +1,19 @@
 {
-  "printWidth": 100,
-  "quoteProps": "as-needed",
-  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "semi": true,
   "tabWidth": 2,
-  "semi": false,
+  "printWidth": 80,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
   "overrides": [
     {
-      "files": "*.canvas",
+      "files": "*.astro",
       "options": {
-        "parser": "json"
-      }
-    },
-    {
-      "files": "*.base",
-      "options": {
-        "parser": "yaml"
+        "parser": "astro"
       }
     }
   ]

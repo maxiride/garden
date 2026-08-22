@@ -1,17 +1,17 @@
-FROM node:22-slim AS builder
+# Base stage for building the static files
+FROM node:lts AS base
+WORKDIR /app
 
-# install git to install plugins
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-WORKDIR /usr/src/app
-COPY package.json .
-COPY package-lock.json* .
-COPY quartz/ ./quartz/
-COPY quartz.lock.json .
-RUN npm ci; npx quartz plugin install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-FROM node:22-slim
-WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/ /usr/src/app/
 COPY . .
-CMD ["npx", "quartz", "build", "--serve"]
+RUN pnpm run build
+
+# Runtime stage for serving the application
+FROM nginx:mainline-alpine-slim AS runtime
+COPY --from=base /app/dist /usr/share/nginx/html
+EXPOSE 80
